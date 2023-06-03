@@ -15,12 +15,24 @@ export default function Home({ bloques }) {
 
   const horas = [['08:00','09:30'],['09:40','11:10'],['11:20','12:50'],['14:45','16:10'],['16:20','17:50'],['17:55','19:25'],['19:30','21:00']]
   const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+  const [valorDiv, setValorDiv] = useState('');
+  // let items = Object.values(bloque).map(i => ({Ramo: i.ramos}));
+  // console.log("xd", items);
 
   const { setModal } = useModal()
   const [semestre,setSemestre] = useState(1)
 
   const [selectedIndex, setSelectedIndex] = useState(0)
 
+  // const a = document.getElementById('descripcionFueraModal');
+  // console.log(a)
+  // const [descripcion, setDescripcion] = useState('');
+  // const handleClick = (id) => {
+  // // const a = document.getElementById('descripcionFueraModal');
+  //   console.log('ID del elemento:', id);
+  //   setDescripcion("a");
+  //   console.log("1234");
+  // };
   return (
     <>
       <div className={styles.container}>
@@ -62,17 +74,27 @@ export default function Home({ bloques }) {
                           </td>
                           {dias.map((dia, index) => {
                             return (
-                              <td key={index} className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r border-solid border-gray-700 hover:bg-gray-300" onClick={() => { 
+                              <td key={index} id="descripcionFueraModal" className= "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r border-solid border-gray-700 hover:bg-gray-300" onClick={() => { 
                                 setModal(
-                                  <div className="">
+                                  <div className=""> 
                                     {bloques.map((bloque, index) => {
+                                        // let items = Object.values(bloque).map(i => ({Ramo: i.ramos}));
+                                        // console.log("xd", bloque, items);
+                                        // let result = bloques.map(({lines: [departures]}) => departures);
+                                        // let items = Object.values(bloque.bloques_horario.ramos).map(i => ({Ramo: i.ramo}));
+                                        // console.log("xd", items);
+
                                         return (
-                                          <div key={index}>
-                                            <Bloque_horario params={{semestre,hora,dia}} bloque={bloque} />
+                                          <div onClick={console.log("se abrio")} key={index}>
+                                            <Bloque_horario params={{semestre,hora,dia}} bloque={bloque}/>                                       
                                           </div>
                                         );
                                     })}
-                                  </div>)}}>
+                                    {/* <button type="button" className="border border-green-500 bg-green-500 text-white px-4 py-2 transition duration-500 ease select-none hover:bg-green-800 text-center focus:outline-none focus:shadow-outline">
+                                      Agregar
+                                    </button> */}
+                                  </div>)
+                                }}> {valorDiv || 'Abrir Modal'}
                               </td>
                             );
                           })}
@@ -85,7 +107,8 @@ export default function Home({ bloques }) {
             </div>
           </div>
         </div>
-      </div>       
+      </div>
+      <div id="descripcionFueraModal"> hola </div>
     </>
 
 
