@@ -1,6 +1,6 @@
 // CONEXION CON LA API
 export const getData = async() => {
-    const { data } = await fetch('http://190.92.148.107:8080', {
+    const { data } = await fetch('https://icci-schedule-middleware-next.vercel.app/api/tables/bloques_horario', {
         method: 'GET',
         mode: 'cors',
     })
