@@ -24,6 +24,13 @@ function App() {
 
   const { setModal } = useModal()
 
+  const [horario, setHorario] = useState([]);
+  const handleChange = (event) => {
+    const boton = JSON.parse(event.target.value);
+    horario.push(boton)
+    console.log(horario);
+  };
+
   //CODIGO PARA LOS DATOS DE LA API
   useEffect(() => {
     getData().then(data => setData(data));
@@ -66,33 +73,27 @@ function App() {
 
                             {dias.map((dia, index) => {
                               return (
-                                <td key={index} className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r border-solid border-gray-700" onClick={() => {
+                                <td key={index} className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r border-solid border-gray-700 hover:bg-gray-300" onClick={() => { 
                                   setModal(
-                                    <div className='flex flex-col justify-center items-center rounded-md p-4'>
-                                      <table className="mb-2">
-                                        <thead className="bg-[#17286b] border-b border-gray-100 text-white ">
-                                          <tr>
-                                            {tablTh2.map((tabl,index) => {
-                                              return (
-                                                <th key={index} scope="col" className="text-sm font-bold px-2 py-1 text-center border-r border-solid">{tabl}</th>)
-                                            })}
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {data.map((bloque, index) => {
-                                            return (
-                                                <Bloque_horario key={index} params={{semestre,hora,dia}} bloque={bloque} />
-                                            );
-                                          })}
-                                        </tbody>
-                                      </table>
-                                      <div className="flex flex-col sm:flex-row justify-center items-center">
-                                        <button className="p-1 w-32 text-base bg-blue-500 rounded-l text-center font-bold text-white hover:text-amber-300">Añadir</button>
-                                      </div>
-                                    </div>
-                                  )
-                                }}>                                 
-                                  
+                                    <form>
+                                      <select id='select' onChange={handleChange}>
+                                        <option></option>
+                                        {
+                                          data.map((element,index)=>{
+                                            if (element.bloques_horario.bloques_horas.inicio==hora[0] && element.bloques_horario.dia===dia) {
+                                              console.log(element)
+                                              return(<option key={index} value ={JSON.stringify(element)}>{element.bloques_horario.dia} {element.bloques_horario.bloques_horas.inicio} {element.bloques_horario.ramos.ramo} Grupo: {element.bloques_horario.grupo}</option>)
+                                            }
+                                          })
+                                        }
+                                      </select>
+                                    </form>
+                                    )}}>
+                                  {horario.map((element,index)=>{
+                                    if ((element.bloques_horario.bloques_horas.inicio==hora[0] && element.bloques_horario.dia ===dia)){
+                                      return(<p key ={index}>{element.bloques_horario.ramos.ramo} Grupo: {element.bloques_horario.grupo}</p>)
+                                    }
+                                  })}
                                 </td>
                               )
                             })}
