@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 
 export default function Bloque_horario({ params, bloque }) {
@@ -18,9 +19,11 @@ export default function Bloque_horario({ params, bloque }) {
           <td className='text-gray-500 px-2'>{bloque.bloques_horario.sala}</td>
           <td> <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)}/> </td>
         </tr>
+
       )}
     </>
   
   )  
-  
+
 }
+

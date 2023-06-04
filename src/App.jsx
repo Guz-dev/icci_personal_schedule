@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import './App.css'
 import Bloque_horario from "./components/bloque_horario"
 import { getData } from "./services/middleware_db"
 import Navbar from "./components/Navbar";
 import { useModal } from '../context/ModalContext'
 import { ModalProvider } from '../context/ModalContext'
+
 
 function App() {
   const [data, setData] = useState([])
@@ -36,6 +39,10 @@ function App() {
     getData().then(data => setData(data));
   },[])
 
+
+function App() {
+  const [count, setCount] = useState(0)
+
   // const [selectedBloques, setSelectedBloques] = useState([]);
   // const handleAddBloques = () => {
   //   const bloquesSeleccionados = bloques.filter((bloque) => bloque.isChecked);
@@ -63,8 +70,9 @@ function App() {
                       </tr>
                     </thead>
                   
-                    <tbody className="">
+
                     {horas.map((hora,index) => {
+
                         return(
                           <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-gray-200">
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-solid border-gray-700">
@@ -107,8 +115,32 @@ function App() {
             </div>
           </div>
         </div>
+      </> 
+        : <MissingDataAlert />
+      }
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
 
-      </>
   )
 }
 
