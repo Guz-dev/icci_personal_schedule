@@ -37,7 +37,7 @@ const Modal = ({ modal, unSetModal }) => {
   )
 }
 
-const ModalProvider = props => {
+const ModalProvider = (props) => {
   const [modal, setModal] = useState()
   const unSetModal = useCallback(() => {
     setModal()

@@ -1,3 +1,4 @@
+
 export default function Bloque_horario({ params, bloque }) {
   return (
     <>
