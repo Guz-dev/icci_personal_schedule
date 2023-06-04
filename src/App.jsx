@@ -2,37 +2,44 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Bloque_horario from "./components/bloque_horario"
 import { getData } from "./services/middleware_db"
+import Navbar from "./components/Navbar";
 import { useModal } from '../context/ModalContext'
 import { ModalProvider } from '../context/ModalContext'
 
 function App() {
   const [data, setData] = useState([])
 
-      //console.log(bloques);
-      const semSym = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI']
-      const tablTh = ['Clave Hora','Lunes','Martes','Miercoles','Jueves','Viernes']
-    
-      const horas = [['08:00','09:30'],['09:40','11:10'],['11:20','12:50'],['14:45','16:10'],['16:20','17:50'],['17:55','19:25'],['19:30','21:00']]
-      const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
-    
-      const [semestre,setSemestre] = useState(1)
-      const [selectedIndex, setSelectedIndex] = useState(0)
-    
-      const [bloquesState, setBloquesState] = useState(data !== null)
+  //console.log(bloques);
+  const semSym = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI']
+  const tablTh = ['Clave Hora','Lunes','Martes','Miercoles','Jueves','Viernes']
+  const tablTh2 = ['Semestre','Asignatura','Grupo','Profesor','Sala','']
 
-      const { setModal } = useModal()
+  const horas = [['08:00','09:30'],['09:40','11:10'],['11:20','12:50'],['14:45','16:10'],['16:20','17:50'],['17:55','19:25'],['19:30','21:00']]
+  const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
 
-    //CODIGO PARA LOS DATOS DE LA API
-    useEffect(() => {
-      getData().then(data => setData(data));
-    },[])
+  const [semestre,setSemestre] = useState(1)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
+  const [bloquesState, setBloquesState] = useState(data !== null)
 
+  const { setModal } = useModal()
+
+  //CODIGO PARA LOS DATOS DE LA API
+  useEffect(() => {
+    getData().then(data => setData(data));
+  },[])
+
+  // const [selectedBloques, setSelectedBloques] = useState([]);
+  // const handleAddBloques = () => {
+  //   const bloquesSeleccionados = bloques.filter((bloque) => bloque.isChecked);
+  //   setSelectedBloques(bloquesSeleccionados);
+  //   setModal(false);
+  // };
   
   return (
     <>
-
         <div>
+        <Navbar />
           <title> UTA ICCI - HORARIO </title>
           {/* <Link href="crud" className="pl-10">Ir al crud</Link> */}
           <div className="flex flex-col">
@@ -60,20 +67,32 @@ function App() {
                             {dias.map((dia, index) => {
                               return (
                                 <td key={index} className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r border-solid border-gray-700" onClick={() => {
-                                setModal(
-                                <div className=''>
-                                  {data.map((bloque, index) => {
-                                    return (
-                                      <div key={index}>
-                                        <Bloque_horario params={{semestre,hora,dia}} bloque={bloque} />
+                                  setModal(
+                                    <div className='flex flex-col justify-center items-center rounded-md p-4'>
+                                      <table className="mb-2">
+                                        <thead className="bg-[#17286b] border-b border-gray-100 text-white ">
+                                          <tr>
+                                            {tablTh2.map((tabl,index) => {
+                                              return (
+                                                <th key={index} scope="col" className="text-sm font-bold px-2 py-1 text-center border-r border-solid">{tabl}</th>)
+                                            })}
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {data.map((bloque, index) => {
+                                            return (
+                                                <Bloque_horario key={index} params={{semestre,hora,dia}} bloque={bloque} />
+                                            );
+                                          })}
+                                        </tbody>
+                                      </table>
+                                      <div className="flex flex-col sm:flex-row justify-center items-center">
+                                        <button className="p-1 w-32 text-base bg-blue-500 rounded-l text-center font-bold text-white hover:text-amber-300">Añadir</button>
                                       </div>
-                                    )
-                                  })}
-                                </div>
-                                )
-
+                                    </div>
+                                  )
                                 }}>                                 
-                                  {/* </Modal> */}
+                                  
                                 </td>
                               )
                             })}
