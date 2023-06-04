@@ -108,18 +108,6 @@ function App() {
           </div>
         </div>
 
-        <div className="App">
-      <header className="App-header">
-        <label
-          className="App-link"
-          onClick={() => {
-            setModal(<h1>Hola senora!</h1>)
-          }}
-        >
-          Start a dialogue
-        </label>
-      </header>
-    </div>
       </>
   )
 }
