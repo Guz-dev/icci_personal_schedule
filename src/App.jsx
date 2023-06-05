@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { getData } from "./services/middleware_db"
+//import { getData } from "./services/middleware_db"
+import { data as bloques } from './services/data'
 import Navbar from "./components/Navbar";
 import { useModal } from '../context/ModalContext'
 import MissingDataAlert from './components/MissingDataAlert'
@@ -15,7 +16,7 @@ function App() {
   const horas = [['08:00','09:30'],['09:40','11:10'],['11:20','12:50'],['14:45','16:10'],['16:20','17:50'],['17:55','19:25'],['19:30','21:00']]
   const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
 
-  const [bloquesState, setBloquesState] = useState(data !== null)
+  const [bloquesState, ] = useState(data !== null)
 
   const { setModal } = useModal()
 
@@ -28,7 +29,9 @@ function App() {
 
   //CODIGO PARA LOS DATOS DE LA API
   useEffect(() => {
-    getData().then(data => {setData(data)}).catch(err => {console.log(err); setBloquesState(false)});
+    const { data } = bloques
+    setData(data)
+    //getData().then(data => {setData(data)}).catch(err => {console.log(err); setBloquesState(false)});
   },[])
 
   // const [selectedBloques, setSelectedBloques] = useState([]);
