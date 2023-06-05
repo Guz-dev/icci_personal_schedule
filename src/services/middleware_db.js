@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // CONEXION CON LA API
 export const getData = () => {
-    const data = axios.get('http://190.92.148.107:8080/', { mode: 'cors' })
+    const data = axios.get('http://190.92.148.107:8080/')
     .then(response => {
         //console.log(response.data);
         return response.data
@@ -11,7 +11,7 @@ export const getData = () => {
         console.log(error);
         return null
     })
-    console.log(data);
+    //console.log(data);
     return data
 
 /* 

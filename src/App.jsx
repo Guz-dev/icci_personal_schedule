@@ -1,30 +1,25 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Bloque_horario from "./components/bloque_horario"
 import { getData } from "./services/middleware_db"
 import Navbar from "./components/Navbar";
 import { useModal } from '../context/ModalContext'
-import { ModalProvider } from '../context/ModalContext'
 import MissingDataAlert from './components/MissingDataAlert'
+
+
 function App() {
   const [data, setData] = useState([])
 
   //console.log(bloques);
-  const semSym = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI']
   const tablTh = ['Clave Hora','Lunes','Martes','Miercoles','Jueves','Viernes']
-  const tablTh2 = ['Semestre','Asignatura','Grupo','Profesor','Sala','']
 
   const horas = [['08:00','09:30'],['09:40','11:10'],['11:20','12:50'],['14:45','16:10'],['16:20','17:50'],['17:55','19:25'],['19:30','21:00']]
   const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
-
-  const [semestre,setSemestre] = useState(1)
-  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const [bloquesState, setBloquesState] = useState(data !== null)
 
   const { setModal } = useModal()
 
-  const [horario, setHorario] = useState([]);
+  const [horario, ] = useState([]);
   const handleChange = (event) => {
     const boton = JSON.parse(event.target.value);
     horario.push(boton)

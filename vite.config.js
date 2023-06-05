@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    origin: 'http://190.92.148.107:8080/',
+    origin: ['http://190.92.148.107:8080/','https://icci-schedule-middleware-next.vercel.app/'],
   }
 })
