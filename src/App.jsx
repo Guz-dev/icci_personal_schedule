@@ -28,7 +28,7 @@ function App() {
 
   //CODIGO PARA LOS DATOS DE LA API
   useEffect(() => {
-    getData().then(data => {setData(data.data)}).catch(err => {console.log(err); setBloquesState(false)});
+    getData().then(data => {setData(data)}).catch(err => {console.log(err); setBloquesState(false)});
   },[])
 
   // const [selectedBloques, setSelectedBloques] = useState([]);
