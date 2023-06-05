@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Bloque_horario from "./components/bloque_horario"
 import { getData } from "./services/middleware_db"
 import Navbar from "./components/Navbar";
 import { useModal } from '../context/ModalContext'
 import { ModalProvider } from '../context/ModalContext'
-
-
+import MissingDataAlert from './components/MissingDataAlert'
 function App() {
   const [data, setData] = useState([])
 
@@ -36,12 +33,8 @@ function App() {
 
   //CODIGO PARA LOS DATOS DE LA API
   useEffect(() => {
-    getData().then(data => setData(data));
+    getData().then(data => {setData(data.data)}).catch(err => {console.log(err); setBloquesState(false)});
   },[])
-
-
-function App() {
-  const [count, setCount] = useState(0)
 
   // const [selectedBloques, setSelectedBloques] = useState([]);
   // const handleAddBloques = () => {
@@ -52,7 +45,7 @@ function App() {
   
   return (
     <>
-        <div>
+        {bloquesState ? <div>
         <Navbar />
           <title> UTA ICCI - HORARIO </title>
           {/* <Link href="crud" className="pl-10">Ir al crud</Link> */}
@@ -70,9 +63,8 @@ function App() {
                       </tr>
                     </thead>
                   
-
+                    <tbody className="">
                     {horas.map((hora,index) => {
-
                         return(
                           <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-gray-200">
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-solid border-gray-700">
@@ -89,7 +81,7 @@ function App() {
                                         {
                                           data.map((element,index)=>{
                                             if (element.bloques_horario.bloques_horas.inicio==hora[0] && element.bloques_horario.dia===dia) {
-                                              console.log(element)
+                                              //console.log(element)
                                               return(<option key={index} value ={JSON.stringify(element)}>{element.bloques_horario.dia} {element.bloques_horario.bloques_horas.inicio} {element.bloques_horario.ramos.ramo} Grupo: {element.bloques_horario.grupo}</option>)
                                             }
                                           })
@@ -115,31 +107,12 @@ function App() {
             </div>
           </div>
         </div>
-      </> 
-        : <MissingDataAlert />
+        
+      : <MissingDataAlert />
+
       }
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      </>
+
 
   )
 }
